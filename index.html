@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Астра - Ваш ИИ-ассистент</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #6c5ce7;
+            --secondary-color: #a29bfe;
+            --accent-color: #fd79a8;
+            --background-color: #0c0c1e;
+            --text-color: #ffffff;
+            --card-bg-color: #1e1e30;
+        }
+
+        .light-theme {
+            --primary-color: #3498db;
+            --secondary-color: #2980b9;
+            --accent-color: #e74c3c;
+            --background-color: #ecf0f1;
+            --text-color: #2c3e50;
+            --card-bg-color: #ffffff;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.4);
+            }
+
+            70% {
+                box-shadow: 0 0 0 10px rgba(108, 92, 231, 0);
+            }
+
+            100% {
+                box-shadow: 0 0 0 0 rgba(108, 92, 231, 0);
+            }
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        header {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            padding: 20px 0;
+            animation: gradientBG 15s ease infinite;
+            background-size: 400% 400%;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-color);
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .cta-button {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .cta-button:hover {
+            background-color: #ff8dc7;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        .hero {
+            text-align: center;
+            padding: 100px 0;
+            background: linear-gradient(135deg, var(--card-bg-color), var(--background-color));
+        }
+
+        h1 {
+            font-size: 56px;
+            margin-bottom: 20px;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .hero h1 span {
+            /* Добавляем стили для букв в слове "Астрой" */
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 300% 300%;
+            animation: gradientBG 5s ease infinite;
+        }
+
+        .subtitle {
+            font-size: 24px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1.5s ease-out;
+            color: var(--secondary-color);
+        }
+
+        .features {
+            background-color: var(--card-bg-color);
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 36px;
+            color: var(--primary-color);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+        }
+
+        .feature {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            animation: fadeInUp 1s ease-out;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.05);
+        }
+
+        .feature:hover {
+            transform: translateY(-10px);
+            box-shadow: 12px 12px 20px rgba(0, 0, 0, 0.15), -12px -12px 20px rgba(255, 255, 255, 0.1);
+        }
+
+        .feature-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, var(--primary-color), var(--accent-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .demo {
+            padding: 80px 0;
+            text-align: center;
+            background: linear-gradient(135deg, var(--background-color), var(--card-bg-color));
+        }
+
+        .demo-box {
+            background: rgba(255, 255, 255, 0.05);
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 40px;
+            border-radius: 20px;
+            animation: fadeInUp 1.5s ease-out;
+            box-shadow: 8px 8px 15px rgba(0, 0, 0, 0.1), -8px -8px 15px rgba(255, 255, 255, 0.05);
+        }
+
+        #demoText {
+            font-size: 18px;
+            margin-bottom: 30px;
+            color: var(--secondary-color);
+        }
+
+        #playButton {
+            font-size: 18px;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        footer {
+            background-color: var(--card-bg-color);
+            text-align: center;
+            padding: 20px 0;
+            color: var(--secondary-color);
+        }
+
+        #themeToggle {
+            background-color: var(--card-bg-color);
+            color: var(--text-color);
+            border: 2px solid var(--primary-color);
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 700;
+            margin-left: 20px;
+        }
+
+        #themeToggle:hover {
+            background-color: var(--primary-color);
+            color: var(--background-color);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 40px;
+            }
+
+            .subtitle {
+                font-size: 20px;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            #themeToggle {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        .tech-details {
+            background: linear-gradient(135deg, var(--background-color), var(--card-bg-color));
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .tech-details h2 {
+            color: var(--primary-color);
+            margin-bottom: 30px;
+        }
+
+        .tech-details p {
+            font-size: 18px;
+            line-height: 1.8;
+            color: var(--secondary-color);
+            margin-bottom: 20px;
+        }
+
+        .tech-details strong {
+            color: var(--text-color);
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">Астра</div>
+                <div>
+                    <button class="cta-button">Попробовать</button>
+                    <!-- <button id="themeToggle">Сменить тему</button> -->
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <h1>Встречайте нового голосового помощника <span>"Астра"</span></h1>
+                <p class="subtitle">Ваш личный ИИ-ассистент с множеством полезных функций</p>
+                <button class="cta-button">Начать разговор</button>
+            </div>
+        </section>
+
+        <section class="features">
+            <div class="container">
+                <h2>Возможности Астры</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <div class="feature-icon">💡</div>
+                        <h3>Умный диалог</h3>
+                        <p>Астра понимает контекст и ведет естественную беседу</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🛡️</div>
+                        <h3>Безопасность</h3>
+                        <p>Ваши данные под надежной защитой</p>
+                    </div>
+                    <div class="feature">
+                        <div class="feature-icon">🎙️</div>
+                        <h3>Приятный голос</h3>
+                        <p>Мелодичный женский голос Астры приятен для слуха</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="demo">
+            <div class="container">
+                <h2>Послушайте Астру</h2>
+                <div class="demo-box">
+                    <p id="demoText">"Здравствуйте! Я Астра, ваш персональный ИИ-ассистент. Чем я могу вам помочь
+                        сегодня?"</p>
+                    <button id="playButton" class="cta-button">▶ Воспроизвести</button>
+                </div>
+            </div>
+        </section>
+        <section class="tech-details">
+            <div class="container">
+                <h2>Немного технических подробностей</h2>
+                <p>Астра разработана на языке программирования <strong >Python</strong> с использованием передовых технологий искусственного интеллекта. Мы постоянно совершенствуем Астру, добавляя новые функции и возможности.</p>
+                <p>В скором времени ожидайте крупное обновление, которое позволит вам <strong >настраивать внешний облик Астры</strong>! Вы сможете выбрать аватар, который вам больше всего нравится, и сделать взаимодействие с Астрой еще более персонализированным.</p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>© 2024 Астра ИИ. Все права защищены.</p>
+        </div>
+    </footer>
+
+    <script>
+        const playButton = document.getElementById('playButton');
+        const demoText = document.getElementById('demoText');
+        const themeToggle = document.getElementById('themeToggle');
+        let isPlaying = false;
+        let isDarkTheme = true;
+
+        playButton.addEventListener('click', () => {
+            if (isPlaying) {
+                playButton.textContent = '▶ Воспроизвести';
+                demoText.style.color = 'var(--secondary-color)';
+                playButton.style.animation = 'pulse 2s infinite';
+            } else {
+                playButton.textContent = '⏹ Остановить';
+                demoText.style.color = 'var(--accent-color)';
+                playButton.style.animation = 'none';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            isDarkTheme = !isDarkTheme;
+            themeToggle.textContent = isDarkTheme ? 'Светлая тема' : 'Темная тема';
+        });
+
+        // Анимация появления элементов при прокрутке
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        const animatedElements = document.querySelectorAll('.feature, .demo-box');
+        animatedElements.forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease-out, transform 0.5s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+
+</html>
